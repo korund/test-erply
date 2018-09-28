@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
 import './VatChecker.css';
 
 class VatChecker extends Component {
+  constructor(props) {
+    super(props)
+    this.inputVatNumber = 'vat-number'
+    this.buttonCheckVat = 'vat-check'
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div className="vat-checker">
+        <form>
+          <fieldset>
+            <legend>Check VAT number</legend>
+            <label for={this.inputVatNumber}>Enter VAT number</label>
+            <input type="text" name={this.inputVatNumber}/><br/>
+            <input type="button" name={this.buttonCheckVat} value="Check" />
+          </fieldset>
+        </form>
       </div>
     );
   }
