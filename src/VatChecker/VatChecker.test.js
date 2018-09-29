@@ -6,7 +6,15 @@ import VatChecker from './VatChecker';
 
 Enzyme.configure({adapter: new Adapter()});
 
+const props = {
+  url: 'https://vat.erply.com/numbers',
+  queryKey: 'vatNumber',
+  method: 'GET'
+}
+
 describe('VatChecker', function () {
+  const vatCheckerConstruction = <VatChecker method={props.method} url={props.url} queryKey={props.queryKey} />
+
   describe('#constructor', function () {
     
   })
@@ -15,14 +23,8 @@ describe('VatChecker', function () {
     let wrapper
 
     beforeEach(function () {
-      wrapper = shallow(<VatChecker/>)
+      wrapper = shallow(vatCheckerConstruction)
     })
-
-    it('renders without crashing', () => {
-      const div = document.createElement('div')
-      ReactDOM.render(<VatChecker />, div)
-      ReactDOM.unmountComponentAtNode(div)
-    });
 
     it('should have field to enter VAT number', function () {
       expect(wrapper.find({name: 'vat-number'})).toHaveLength(1)
@@ -47,21 +49,50 @@ describe('VatChecker', function () {
     let wrapper
 
     beforeEach(function () {
-      wrapper = shallow(<VatChecker/>)
+      wrapper = shallow(vatCheckerConstruction)
     })
 
     it('should put new value in state', function () {
-      const testName = 'testName'
-      const testValue = 'testValue'
-      const event = {target: {name: testName, value: testValue}}
+      const name = 'test-name'
+      const value = 'test-value'
+      const event = {target: {name: name, value: value}}
       wrapper.instance().handleChange(event)
-      expect(wrapper.instance().state[testName]).toBe(testValue)
+      expect(wrapper.instance().state[name]).toBe(value)
     })
   })
 
   describe('#handleSubmit', function () {
-    it('should call for xhr method with current state', function () {
+    let wrapper
+    const event = {}
 
+    beforeEach(function () {
+      event.preventDefault = jest.fn()
+      wrapper = shallow(vatCheckerConstruction)
+      wrapper.instance().processRequest = jest.fn()
+    })
+
+    it('should prevent default event behavior', function () {
+      wrapper.instance().handleSubmit(event)
+      expect(event.preventDefault).toHaveBeenCalled()
+    })
+
+    it('should call for #processRequest method', function () {
+      wrapper.instance().handleSubmit(event)
+      expect(wrapper.instance().processRequest).toHaveBeenCalled()
+    })
+  })
+
+  describe('#processRequest', function () {
+    it('should send a xhr request', function () {
+      expect.hasAssertions()
+    })
+
+    it('should return promise', function () {
+      
     })
   })
 })
+
+class MockXhr {
+
+}

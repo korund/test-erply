@@ -4,7 +4,10 @@ import './index.css'
 import VatChecker from './VatChecker/VatChecker'
 import registerServiceWorker from './registerServiceWorker'
 
-const url = 'https://vat.erply.com/numbers'
-const method = 'GET'
-ReactDOM.render(<VatChecker url={url} method={method} />, document.getElementById('root'))
+const props = {
+  url: 'https://vat.erply.com/numbers',
+  queryKey: 'vatNumber',
+  method: 'GET'
+}
+ReactDOM.render(<VatChecker method={props.method} url={props.url} queryKey={props.queryKey}/>, document.getElementById('root'))
 registerServiceWorker()
