@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Enzyme, {shallow, mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16'
 import VatChecker from './VatChecker';
@@ -13,8 +12,6 @@ const props = {
 }
 
 describe('VatChecker', function () {
-  const vatCheckerConstruction = <VatChecker method={props.method} url={props.url} queryKey={props.queryKey} />
-
   describe('#constructor', function () {
     
   })
@@ -23,7 +20,7 @@ describe('VatChecker', function () {
     let wrapper
 
     beforeEach(function () {
-      wrapper = shallow(vatCheckerConstruction)
+      wrapper = shallow(<VatChecker {...props} />)
     })
 
     it('should have field to enter VAT number', function () {
@@ -49,7 +46,7 @@ describe('VatChecker', function () {
     let wrapper
 
     beforeEach(function () {
-      wrapper = shallow(vatCheckerConstruction)
+      wrapper = shallow(<VatChecker {...props} />)
     })
 
     it('should put new value in state', function () {
@@ -67,7 +64,7 @@ describe('VatChecker', function () {
 
     beforeEach(function () {
       event.preventDefault = jest.fn()
-      wrapper = shallow(vatCheckerConstruction)
+      wrapper = shallow(<VatChecker {...props} />)
       wrapper.instance().processRequest = jest.fn()
     })
 

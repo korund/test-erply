@@ -9,5 +9,6 @@ const props = {
   queryKey: 'vatNumber',
   method: 'GET'
 }
-ReactDOM.render(<VatChecker method={props.method} url={props.url} queryKey={props.queryKey}/>, document.getElementById('root'))
+
+ReactDOM.render(<VatChecker {...props} />, document.getElementById('root'))
 registerServiceWorker()

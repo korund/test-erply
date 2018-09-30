@@ -13,11 +13,11 @@ class VatChecker extends Component {
     super(props)
     this.vatNumber = 'vat-number'
 
-    this.state = {}
+    this.state = { requestResult: null }
     this.state[this.vatNumber] = ''
-    this.state.vatViewerState = {}
 
     for (let property in props) {
+      if(props.hasOwnProperty(property))
         this.state[property] = props[property]
     }
 
@@ -45,18 +45,11 @@ class VatChecker extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    //alert('Input data: ' + this.state[this.vatNumber].value)
     this.processRequest()
-      .then((resolved) => {
-        console.log('Resolved:\n')
-        console.log(resolved)
-      }, (rejected) => {
-        console.log('Reject:\n')
-        console.log(rejected)
-      })
   }
 
   processRequest() {
+    const saveResult = (result) => this.setState({requestResult: result})
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest()
       xhr.open(this.state.method, this.state.url + '?' + this.state.queryKey + '=' + this.state[this.vatNumber])
@@ -74,11 +67,16 @@ class VatChecker extends Component {
         }
       }
       xhr.send()
+    }).then((resolved) => {
+      saveResult(JSON.parse(resolved))
+    }, (rejected) => {
+      saveResult(rejected)
     })
   }
 
   render() {
     const inputName = this.vatNumber
+    const requestResult = this.state.requestResult
     return (
       <div className="vat-checker">
         <form onSubmit={this.handleSubmit}>
@@ -89,7 +87,7 @@ class VatChecker extends Component {
             <input type="submit" value="Check" />
           </fieldset>
         </form>
-        <VatViewer state={this.state.vatViewerState}/>
+        {requestResult && <VatViewer {...requestResult} />}
       </div>
     )
   }
