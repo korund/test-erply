@@ -24,10 +24,12 @@ describe('VatChecker', function () {
     })
 
     it('should have field to enter VAT number', function () {
+      // TODO: use contain
       expect(wrapper.find({name: 'vat-number'})).toHaveLength(1)
     })
 
     it('should have submit button', function () {
+      // TODO: use contain
       expect(wrapper.find('input[type="submit"]')).toHaveLength(1)
     })
 

@@ -13,7 +13,7 @@ class VatChecker extends Component {
     super(props)
     this.vatNumber = 'vat-number'
 
-    this.state = { requestResult: null }
+    this.state = {}
     this.state[this.vatNumber] = ''
 
     for (let property in props) {
@@ -45,6 +45,7 @@ class VatChecker extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
+    this.setState({requestResult: null})
     this.processRequest()
   }
 
@@ -77,6 +78,7 @@ class VatChecker extends Component {
   render() {
     const inputName = this.vatNumber
     const requestResult = this.state.requestResult
+    console.log(requestResult)
     return (
       <div className="vat-checker">
         <form onSubmit={this.handleSubmit}>
@@ -87,7 +89,7 @@ class VatChecker extends Component {
             <input type="submit" value="Check" />
           </fieldset>
         </form>
-        {requestResult && <VatViewer {...requestResult} />}
+        {typeof requestResult !== 'undefined' && <VatViewer {...requestResult} />}
       </div>
     )
   }

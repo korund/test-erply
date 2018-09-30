@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import loading from './loading.svg'
 
 class VatViewer extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class VatViewer extends Component {
     this.state = {titles: titleMap}
   }
 
-  render() {
+  renderResult() {
     const titles = []
     const values = []
     for (let id in this.props) {
@@ -25,15 +26,37 @@ class VatViewer extends Component {
         values.push(<p key={id}>{`${this.props[id]}`}</p>)
       }
     }
+    return (
+      <div className='vat-check-result'>
+        <div id={'titles'}> {titles} </div>
+        <div id={'values'}> {values} </div>
+      </div>
+    )
+  }
+
+  renderLoading() {
+    return (
+      <div>
+        <img src={loading} className="loading-logo" alt="loading" />
+        <p>Loading</p>
+      </div>
+    )
+  }
+
+  render() {
+    let isPropsEmpty = true
+    for (let item in this.props) {
+      if (this.props.hasOwnProperty(item)) {
+        isPropsEmpty = false
+        break
+      }
+    }
 
     return (
       <div className={'vat-viewer'}>
         <fieldset>
           <legend>Result</legend>
-            <div className='response-info'>
-              <div id={'titles'}> {titles} </div>
-              <div id={'values'}> {values} </div>
-            </div>
+          {isPropsEmpty ? this.renderLoading() : this.renderResult()}
         </fieldset>
       </div>
     )
