@@ -1,5 +1,5 @@
 import React from 'react';
-import Enzyme, {shallow, mount} from 'enzyme';
+import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16'
 import VatChecker from './VatChecker';
 import VatViewer from '../VatViewer/VatViewer'
@@ -53,21 +53,20 @@ describe('VatChecker', function () {
     })
 
     it('should call #handleSubmit on form submission', function () {
-      const mockFn = jest.fn()
-      VatChecker.prototype.handleSubmit = mockFn
+      const spy = jest.spyOn(VatChecker.prototype, 'handleSubmit')
       wrapper = shallow(<VatChecker {...props} />)
-      expect(mockFn).not.toHaveBeenCalled()
-      wrapper.find('form').simulate('submit')
-      expect(mockFn).toHaveBeenCalled()
+      expect(spy).not.toHaveBeenCalled()
+      wrapper.find('form').simulate('submit', {preventDefault: jest.fn()})
+      expect(spy).toHaveBeenCalled()
     })
 
     it('should call #handleChange on text field content change', function () {
-      const mockFn = jest.fn()
-      VatChecker.prototype.handleChange = mockFn
+      const spy = jest.spyOn(VatChecker.prototype, 'handleChange')
       wrapper = shallow(<VatChecker {...props} />)
-      expect(mockFn).not.toHaveBeenCalled()
-      wrapper.find(`input[name="${wrapper.state().vatNumberKey}"]`).simulate('change')
-      expect(mockFn).toHaveBeenCalled()
+      expect(spy).not.toHaveBeenCalled()
+      wrapper.find(`input[name="${wrapper.state().vatNumberKey}"]`)
+        .simulate('change', {target: {name: 'name', value: 'changedValue'}})
+      expect(spy).toHaveBeenCalled()
     })
 
     it('should not render VatViewer if requestResult is not defined', function () {

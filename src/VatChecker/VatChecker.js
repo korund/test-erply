@@ -12,7 +12,10 @@ class VatChecker extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { vatNumberKey: this.props.queryKey }
+    this.state = {
+      displayName: this.constructor.name,
+      vatNumberKey: this.props.queryKey
+    }
     this.state[this.state.vatNumberKey] = ''
 
     for (let property in props) {
@@ -52,7 +55,7 @@ class VatChecker extends Component {
     const saveResult = (result) => this.setState({requestResult: result})
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest()
-      xhr.open(this.state.method, this.state.url + '?' + this.state.queryKey + '=' + this.state[this.vatNumber])
+      xhr.open(this.state.method, this.state.url + '?' + this.state.queryKey + '=' + this.state[this.state.queryKey])
       xhr.onerror = function() {
         reject({
           status: this.status,
@@ -78,15 +81,14 @@ class VatChecker extends Component {
     const inputName = this.state.vatNumberKey
     const requestResult = this.state.requestResult
     return (
-      <div className="vat-checker">
-        <form onSubmit={this.handleSubmit}>
-          <fieldset>
-            <legend>Check VAT number</legend>
-            <label htmlFor={inputName}>Enter VAT number</label>
-            <input type="text" name={inputName} value={this.state[inputName]} onChange={this.handleChange} /><br/>
-            <input type="submit" value="Check" />
-          </fieldset>
-        </form>
+      <div className={this.state.displayName}>
+        <fieldset>
+          <h1>Check VAT number</h1>
+          <form onSubmit={this.handleSubmit}>
+            <input type="text" name={inputName} value={this.state[inputName]} placeholder={'Enter VAT number'} onChange={this.handleChange} /><br/>
+            <input type="submit" value="Check number" />
+          </form>
+        </fieldset>
         {typeof requestResult !== 'undefined' && <VatViewer {...requestResult} />}
       </div>
     )

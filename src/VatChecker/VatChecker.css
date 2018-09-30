@@ -1,28 +1,41 @@
-.App {
-  text-align: center;
+.VatChecker {
+  width: 25%;
+  min-width: 500px;
+  margin: auto;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.VatChecker fieldset {
+  border-radius: 10px;
+  border-width: 0;
+  margin: 20px 0;
+  padding: 5px 30px 20px 30px;
+  box-shadow: 0 0 15px grey ;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+.VatChecker h1 {
+  font-size: x-large;
+}
+
+.VatChecker input {
+  width: 100%;
+  height: 36px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 4px;
+  box-shadow: 0 0 8px grey;
+}
+
+.VatChecker input[type="text"] {
+  padding-left: 12px;
+}
+
+.VatChecker input[type="submit"] {
+  margin-bottom: 5px;
+  background: darkblue;
   color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
 }

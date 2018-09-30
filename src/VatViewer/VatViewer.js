@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import loading from './loading.svg'
+import './VatViewer.css'
 
 class VatViewer extends Component {
   constructor(props) {
@@ -13,7 +14,10 @@ class VatViewer extends Component {
     titleMap.set('RequestDate', 'Time of request')
     titleMap.set('status', 'Error code')
     titleMap.set('statusText', 'Error message')
-    this.state = {titles: titleMap}
+    this.state = {
+      displayName: this.constructor.name,
+      titles: titleMap
+    }
   }
 
   renderResult() {
@@ -27,7 +31,7 @@ class VatViewer extends Component {
       }
     }
     return (
-      <div className='vat-check-result'>
+      <div className={this.state.displayName + '-check-result'}>
         <div id={'titles'}> {titles} </div>
         <div id={'values'}> {values} </div>
       </div>
@@ -36,8 +40,8 @@ class VatViewer extends Component {
 
   renderLoading() {
     return (
-      <div>
-        <img src={loading} className="loading-logo" alt="loading" />
+      <div className={this.state.displayName + '-loading'}>
+        <img src={loading} className={this.state.displayName + '-loading-logo'} alt="loading" />
         <p>Loading</p>
       </div>
     )
@@ -53,9 +57,9 @@ class VatViewer extends Component {
     }
 
     return (
-      <div className={'vat-viewer'}>
+      <div className={this.state.displayName}>
         <fieldset>
-          <legend>Result</legend>
+          <h1>Result</h1>
           {isPropsEmpty ? this.renderLoading() : this.renderResult()}
         </fieldset>
       </div>
