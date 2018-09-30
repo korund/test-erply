@@ -11,10 +11,9 @@ const requiredProps = {
 class VatChecker extends Component {
   constructor(props) {
     super(props)
-    this.vatNumber = 'vat-number'
 
-    this.state = {}
-    this.state[this.vatNumber] = ''
+    this.state = { vatNumberKey: this.props.queryKey }
+    this.state[this.state.vatNumberKey] = ''
 
     for (let property in props) {
       if(props.hasOwnProperty(property))
@@ -76,9 +75,8 @@ class VatChecker extends Component {
   }
 
   render() {
-    const inputName = this.vatNumber
+    const inputName = this.state.vatNumberKey
     const requestResult = this.state.requestResult
-    console.log(requestResult)
     return (
       <div className="vat-checker">
         <form onSubmit={this.handleSubmit}>
