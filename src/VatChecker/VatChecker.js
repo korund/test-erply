@@ -13,7 +13,6 @@ class VatChecker extends Component {
     super(props)
 
     this.state = {
-      displayName: this.constructor.name,
       vatNumberKey: this.props.queryKey
     }
     this.state[this.state.vatNumberKey] = ''
@@ -81,7 +80,7 @@ class VatChecker extends Component {
     const inputName = this.state.vatNumberKey
     const requestResult = this.state.requestResult
     return (
-      <div className={this.state.displayName}>
+      <div className={'VatChecker'}>
         <fieldset>
           <h1>Check VAT number</h1>
           <form onSubmit={this.handleSubmit}>

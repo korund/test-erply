@@ -15,7 +15,6 @@ class VatViewer extends Component {
     titleMap.set('status', 'Error code')
     titleMap.set('statusText', 'Error message')
     this.state = {
-      displayName: this.constructor.name,
       titles: titleMap
     }
   }
@@ -31,7 +30,7 @@ class VatViewer extends Component {
       }
     }
     return (
-      <div className={this.state.displayName + '-check-result'}>
+      <div className={'VatViewer-check-result'}>
         <div id={'titles'}> {titles} </div>
         <div id={'values'}> {values} </div>
       </div>
@@ -40,8 +39,8 @@ class VatViewer extends Component {
 
   renderLoading() {
     return (
-      <div className={this.state.displayName + '-loading'}>
-        <img src={loading} className={this.state.displayName + '-loading-logo'} alt="loading" />
+      <div className={'VatViewer-loading'}>
+        <img src={loading} className={'VatViewer-loading-logo'} alt="loading" />
         <p>Loading</p>
       </div>
     )
@@ -57,7 +56,7 @@ class VatViewer extends Component {
     }
 
     return (
-      <div className={this.state.displayName}>
+      <div className={'VatViewer'}>
         <fieldset>
           <h1>Result</h1>
           {isPropsEmpty ? this.renderLoading() : this.renderResult()}
