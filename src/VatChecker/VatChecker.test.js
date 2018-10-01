@@ -125,16 +125,26 @@ describe('VatChecker', function () {
   })
 
   describe('#processRequest', function () {
-    it('should send a xhr request', function () {
+    // TODO: need a mock XHR implementation
+    let wrapper
+    const number = 'test number'
+    const url = props.url + '?' + props.queryKey + '=' + number
+
+    beforeEach(function () {
+      // global.XMLHttpRequest = MockXHR
+      wrapper = shallow(<VatChecker {...props} />)
+      wrapper.setState((state) => {
+        state[props.queryKey] = number
+        return state
+      })
+    })
+
+    it('should make a xhr request', function () {
       expect.hasAssertions()
     })
 
-    it('should return promise', function () {
+    it('should set requestResult with provided content', function () {
       expect.hasAssertions()
     })
   })
 })
-
-class MockXhr {
-
-}
